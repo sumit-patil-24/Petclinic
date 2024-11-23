@@ -14,7 +14,7 @@ pipeline {
         
         stage("Git Checkout"){
             steps{
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/jaiswaladi246/Petclinic.git'
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/sumit202/Petclinic.git'
             }
         }
         
@@ -51,9 +51,7 @@ pipeline {
             steps{
                 script{
                    withDockerRegistry(credentialsId: '58be877c-9294-410e-98ee-6a959d73b352', toolName: 'docker') {
-                        
-                        sh "docker build -t image1 ."
-                        sh "docker tag image1 sumit202/petclinic:latest "
+                        sh "docker build sumit202/petclinic:latest "
                         sh "docker push sumit202/petclinic:latest "
                     }
                 }
@@ -62,7 +60,9 @@ pipeline {
         
         stage("Deploy To kubernetes"){
             steps{
-                sh "cp  /var/lib/jenkins/workspace/CI-CD/target/petclinic.war /opt/apache-tomcat-9.0.65/webapps/ "
+                script{
+                        sh "kubectl apply -f deployservice.yml -n demo"
+                        sh "kubectl get all -n demo"
             }
         }
     }
