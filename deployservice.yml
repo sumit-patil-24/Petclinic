@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: sumit202/petclinic:latest
+        image: sumit202/valentine:v1
         ports:
-        - containerPort: 8082
+        - containerPort: 80
 
 ---
 
@@ -32,6 +32,6 @@ spec:
     app: nginx
   ports:
     - port: 80
-      targetPort: 8082
+      targetPort: 80
       nodePort: 30007
 
