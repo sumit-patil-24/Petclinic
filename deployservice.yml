@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.14.2
+        image: sumit202/petclinic:latest
         ports:
         - containerPort: 80
 
